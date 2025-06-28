@@ -7,7 +7,7 @@ const budgetSchema = new mongoose.Schema({
   period: { type: String, required: true },
   startDate: { type: Date, required: true, default: Date.now },
   endDate: { type: Date, required: true, default: null },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, immutable: true, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
 
