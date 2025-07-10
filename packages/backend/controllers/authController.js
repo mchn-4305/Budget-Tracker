@@ -1,3 +1,4 @@
+// backend/controllers/authController.js
 const bcrypt = require("bcrypt")
 const jwtUtil = require("../utils/tokenUtils")
 const User = require("../models/User")

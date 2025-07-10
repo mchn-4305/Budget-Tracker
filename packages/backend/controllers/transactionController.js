@@ -1,9 +1,11 @@
+// backend/controllers/transactionController
 const Transaction = require("../models/Transaction")
 
-module.exports = getTransactions = async (req, res) => {
+const getTransactions = async (req, res) => {
     try {
         const { category, startDate, endDate, minAmount, maxAmount } = req.query
-        const filter = {}
+        const { userId } = req.user.userId
+        const filter = { userId }
         
         if (category) { filter.category = category }
         if (startDate || endDate) {
@@ -17,7 +19,7 @@ module.exports = getTransactions = async (req, res) => {
             if (maxAmount) { filter.amount.$lte = parseFloat(maxAmount) }
         }
         
-        const transactions = Transaction.find(filter).sort({ date: -1 })
+        const transactions = await Transaction.find(filter).sort({ date: -1 })
         res.status(200).json(transactions)
     } catch (err) {
         console.log(err)
@@ -25,7 +27,7 @@ module.exports = getTransactions = async (req, res) => {
     }
 }
 
-module.exports = postTransaction = async (req, res) => {
+const postTransaction = async (req, res) => {
     try {
         const { amount, category, description, date } = req.body
 
@@ -43,4 +45,24 @@ module.exports = postTransaction = async (req, res) => {
         console.log(err)
         res.status(500).send()
     }
+}
+
+const updateTransaction = async (req, res) => {
+    const { id } = req.params
+    const { amount, category, description, date } = req.body
+    await Transaction.findOneAndUpdate({ _id: id, userId: req.user.userId }, { amount, category, description,date })
+    res.json(200)
+}
+
+const deleteTransaction = async (req, res) => {
+    const { id } = req.params
+    await Transaction.findOneAndDelete({ _id: id, userId: req.user.userId })
+    res.json(200)
+}
+
+module.exports = {
+    getTransactions,
+    postTransaction,
+    updateTransaction,
+    deleteTransaction
 }
