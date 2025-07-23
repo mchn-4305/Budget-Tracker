@@ -1,5 +1,5 @@
-import LogInForm from "./LogInForm";
-import styles from "./LogIn.module.css";
+import LogInForm from "../features/auth/LogInForm";
+import styles from "../assets/styles/LogIn.module.css";
 
 const LogIn = () => {
     return (
