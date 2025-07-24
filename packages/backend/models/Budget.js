@@ -8,7 +8,7 @@ const budgetSchema = new mongoose.Schema({
   startDate: { type: Date, required: true, default: Date.now },
   endDate: { type: Date, required: true, default: null },
   createdAt: { type: Date, immutable: true, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Budget", budgetSchema);

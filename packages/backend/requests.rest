@@ -6,7 +6,7 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "username": "Sebastian",
+    "username": "user",
     "password": "password"
 }
 
@@ -16,13 +16,13 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "username": "Micah",
+    "username": "user",
     "password": "password"
 }
 
 ###
 
-POST http://localhost:5000/api/auth/logout
+POST http://localhost:5000/logout
 Content-Type: application/json
 
 {

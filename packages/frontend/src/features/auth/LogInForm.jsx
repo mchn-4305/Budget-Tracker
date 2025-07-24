@@ -7,6 +7,7 @@ const MIN_USERNAME_LENGTH = 3;
 const MIN_PASSWORD_LENGTH = 6;
 
 const LogInForm = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -41,7 +42,7 @@ const LogInForm = () => {
     try {
       await login(user);
       setUser({ username: "", password: "" });
-      useNavigate("/");
+      navigate("/");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -50,7 +51,7 @@ const LogInForm = () => {
   };
 
   const login = async (userData) => {
-    const res = await fetch(`${url}/login`, {
+    const res = await fetch(`${url}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

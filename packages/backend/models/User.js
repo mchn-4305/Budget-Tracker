@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   // isEmailVerified: { type: Boolean, default: false},
   refreshToken: { type: String, default: null },
   createdAt: { type: Date, immutable: true, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("User", userSchema);

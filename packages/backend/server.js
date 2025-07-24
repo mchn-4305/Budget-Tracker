@@ -5,6 +5,13 @@ const db = require("./utils/db");
 const authRoutes = require("./routes/auth");
 const transactionRoutes = require("./routes/transaction");
 // const budgetRoutes = require("./routes/budget");
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 db.connect().catch((err) =>
   console.error("Initial DB Connection failed:", err)
