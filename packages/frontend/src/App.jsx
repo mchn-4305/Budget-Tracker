@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
+import Budgets from "./pages/Budgets"
 
 const App = () => {
   const PrivateRoute = ({ element }) => {
@@ -12,14 +13,17 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* login route */}
         <Route path="/login" element={<LogIn />} />
 
-        {/* signup route */}
         <Route path="/signup" element={<SignUp />} />
 
-        {/* default route */}
         <Route path="/" element={<PrivateRoute element={<Home />} />} />
+
+        <Route path="/budgets" element={<PrivateRoute element={<Budgets />} />} />
+
+        <Route path="/about" element={<PrivateRoute element={<About />} />} />
+
+
       </Routes>
     </Router>
   );

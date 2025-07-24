@@ -1,21 +1,22 @@
-// frontend/features/auth/LogInForm.jsx
 import { useState } from "react";
-import styles from "../../assets/styles/LogInForm.module.css";
+import styles from "../../assets/styles/SignUpForm.module.css";
 import { useNavigate, Link } from "react-router";
 const url = import.meta.env.API_URL || "http://localhost:5000";
 const MIN_USERNAME_LENGTH = 3;
 const MIN_PASSWORD_LENGTH = 6;
 
-const LogInForm = () => {
+const SignUpForm = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
 
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState(null);
+
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -37,11 +38,19 @@ const LogInForm = () => {
       setError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters.`);
       return;
     }
+    if (user.password != user.confirmPassword) {
+      setError(`Passwords must match.`);
+      return;
+    }
 
     setLoading(true);
     try {
-      await login(user);
-      setUser({ username: "", password: "" });
+      await signup(user);
+      setUser({
+        username: "",
+        password: "",
+        confirmPassword: "",
+      });
       navigate("/");
     } catch (err) {
       setError(err);
@@ -50,8 +59,8 @@ const LogInForm = () => {
     }
   };
 
-  const login = async (userData) => {
-    const res = await fetch(`${url}/api/auth/login`, {
+  const signup = async (userData) => {
+    const res = await fetch(`${url}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,14 +71,11 @@ const LogInForm = () => {
       const errData = await res.json();
       throw new Error(errData.message);
     }
-
-    const data = await res.json();
-    localStorage.setItem("authToken", data.token);
   };
 
   return (
     <div className={styles.authform}>
-      <h2>Log In</h2>
+      <h2>Sign Up</h2>
       <form onSubmit={submitForm}>
         <div className={styles.formgroup}>
           <label htmlFor="username">Username</label>
@@ -93,6 +99,17 @@ const LogInForm = () => {
             required
           />
         </div>
+        <div className={styles.formgroup}>
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            value={user.confirmPassword}
+            onChange={handleChange}
+            required
+          />
+        </div>
         {error && (
           <p className={styles.error} aria-live="polite">
             {error.message}
@@ -104,19 +121,19 @@ const LogInForm = () => {
             type="submit"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Log In"}
+            {loading ? "Signing up..." : "Sign Up"}
           </button>
         </div>
       </form>
       <hr />
       <p className="signUpText">
-        Don&apos;t have an account?{" "}
-        <Link className="link" to="/signup">
-          Sign up here
+        Already have an account?{" "}
+        <Link className="link" to="/login">
+          Log in here
         </Link>
       </p>
     </div>
   );
 };
 
-export default LogInForm;
+export default SignUpForm;
