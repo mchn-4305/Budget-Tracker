@@ -1,0 +1,11 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.nav .navlink {
+  margin-left: 30px;
+  font-size: 18px;
+}

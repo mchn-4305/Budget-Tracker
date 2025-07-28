@@ -1,0 +1,70 @@
+:root {
+  --text: #f5fbef;
+  --primary-color: #40f99b;
+  --secondary-color: #80a1d4;
+  --dark-bg: #1c2021;
+  --light-bg: #305252;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background: linear-gradient(45deg, var(--light-bg), var(--secondary-color));
+  margin: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  color: var(--text);
+}
+
+.link {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.link:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+h1 span,
+h2 span,
+p span {
+  color: var(--primary-color);
+}
+
+.btn {
+  background: var(--text);
+  color: var(--dark-bg);
+  padding: 15px 10px;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background: var(--primary-color);
+}
+
+.container {
+  height: 100vh;
+}
+
+.bento {
+  background: var(--dark-bg);
+  border-radius: 10px;
+}
