@@ -112,7 +112,7 @@ const SignUpForm = () => {
         </div>
         {error && (
           <p className={styles.error} aria-live="polite">
-            {error.message}
+            {error}
           </p>
         )}
         <div className={styles.formgroup}>

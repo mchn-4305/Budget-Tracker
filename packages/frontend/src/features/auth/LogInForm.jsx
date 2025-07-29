@@ -1,6 +1,6 @@
 // frontend/features/auth/LogInForm.jsx
 import { useState } from "react";
-import styles from "../../assets/styles/LogInForm.module.css";
+import styles from "../../assets/styles/SignUpForm.module.css";
 import { useNavigate, Link } from "react-router";
 const url = import.meta.env.API_URL || "http://localhost:5000";
 const MIN_USERNAME_LENGTH = 3;
@@ -68,7 +68,7 @@ const LogInForm = () => {
   };
 
   return (
-    <div className={styles.authform}>
+    <div className={`bento ${styles.authform}`}>
       <h2>Log In</h2>
       <form onSubmit={submitForm}>
         <div className={styles.formgroup}>
@@ -95,7 +95,7 @@ const LogInForm = () => {
         </div>
         {error && (
           <p className={styles.error} aria-live="polite">
-            {error.message}
+            {error}
           </p>
         )}
         <div className={styles.formgroup}>

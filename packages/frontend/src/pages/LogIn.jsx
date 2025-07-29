@@ -1,5 +1,5 @@
 import LogInForm from "../features/auth/LogInForm";
-import styles from "../assets/styles/LogIn.module.css";
+import styles from "../assets/styles/SignUp.module.css";
 
 const LogIn = () => {
   return (
@@ -7,7 +7,9 @@ const LogIn = () => {
       <h1 className={`${styles.header}`}>
         Coin<span>purse</span>
       </h1>
-      <LogInForm />
+      <div className={`${styles.container}`}>
+        <LogInForm />
+      </div>
     </div>
   );
 };

@@ -1,58 +1,46 @@
-.flex-columns .row{
+.flexColumns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexColumns .row{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
 }
 
-.flex-columns .column{
+.flexColumns .column{
     display: flex;
     flex-direction: column;
     flex-basis: 100%;
     flex: 1;
     min-width: 0;
-    /* flex: 0 0 50%;
-    max-width: 50%;
-    display: flex;
-    flex-direction: column; */
 }
 
-.flex-columns .column .infoColumn,
-.flex-columns .column .graphicColumn{
+.flexColumns .column .infoColumn,
+.flexColumns .column .graphicColumn{
     height: 100%;
 }
 
-.flex-columns img{
+.flexColumns img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.flex-columns .infoColumn{
+.flexColumns .infoColumn{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    /* padding: 30px; */
 }
 
-.flex-columns .infoColumn p{
+.flexColumns .infoColumn p{
     font-size: 24px;
     max-width: 400px;
-}
-
-.flex-items {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.flex-item {
-    flex: 1;
-    max-width: 300px;
-    text-align: center;
 }
 
 .container {
@@ -61,4 +49,10 @@
     padding: 30px;
 
     text-align: center;
+}
+
+.header {
+    margin: 5% 0 auto;
+    text-align: center;
+    font-size: 60px;
 }
