@@ -3,7 +3,7 @@ import styles from "../assets/styles/LogIn.module.css";
 
 const LogIn = () => {
   return (
-    <div className={`${styles.container}`}>
+    <div className={`container`}>
       <h1 className={`${styles.header}`}>
         Coin<span>purse</span>
       </h1>

@@ -67,4 +67,5 @@ p span {
 .bento {
   background: var(--dark-bg);
   border-radius: 10px;
+  color: var(--text)
 }
