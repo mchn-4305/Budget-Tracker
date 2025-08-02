@@ -1,24 +1,29 @@
+// frontend/features/auth/LogInForm.jsx
 import { useState } from "react";
 import styles from "../../assets/styles/SignUpForm.module.css";
 import { useNavigate, Link } from "react-router";
-const url = import.meta.env.API_URL || "http://localhost:5000";
+const url = "http://localhost:5000";
 const MIN_USERNAME_LENGTH = 3;
 const MIN_PASSWORD_LENGTH = 6;
 
-const SignUpForm = () => {
+type UserInput = {
+  username: string;
+  password: string;
+};
+
+const LogInForm = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-
-  const [error, setError] = useState(null);
+  
+  const [error, setError] = useState<String | null>(null);
 
   const [user, setUser] = useState({
     username: "",
     password: "",
-    confirmPassword: "",
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUser((prevUser) => ({
       ...prevUser,
@@ -26,7 +31,7 @@ const SignUpForm = () => {
     }));
   };
 
-  const submitForm = async (event) => {
+  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
 
@@ -38,29 +43,25 @@ const SignUpForm = () => {
       setError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters.`);
       return;
     }
-    if (user.password != user.confirmPassword) {
-      setError(`Passwords must match.`);
-      return;
-    }
 
     setLoading(true);
     try {
-      await signup(user);
-      setUser({
-        username: "",
-        password: "",
-        confirmPassword: "",
-      });
+      await login(user);
+      setUser({ username: "", password: "" });
       navigate("/");
-    } catch (err) {
-      setError(err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred.")
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  const signup = async (userData) => {
-    const res = await fetch(`${url}/api/auth/register`, {
+  const login = async (userData: UserInput) => {
+    const res = await fetch(`${url}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,11 +72,14 @@ const SignUpForm = () => {
       const errData = await res.json();
       throw new Error(errData.message);
     }
+
+    const data = await res.json();
+    localStorage.setItem("authToken", data.token);
   };
 
   return (
-    <div className={styles.authform}>
-      <h2>Sign Up</h2>
+    <div className={`bento ${styles.authform}`}>
+      <h2>Log In</h2>
       <form onSubmit={submitForm}>
         <div className={styles.formgroup}>
           <label htmlFor="username">Username</label>
@@ -99,17 +103,6 @@ const SignUpForm = () => {
             required
           />
         </div>
-        <div className={styles.formgroup}>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            value={user.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
         {error && (
           <p className={styles.error} aria-live="polite">
             {error}
@@ -121,19 +114,19 @@ const SignUpForm = () => {
             type="submit"
             disabled={loading}
           >
-            {loading ? "Signing up..." : "Sign Up"}
+            {loading ? "Logging in..." : "Log In"}
           </button>
         </div>
       </form>
       <hr />
       <p className="signUpText">
-        Already have an account?{" "}
-        <Link className="link" to="/login">
-          Log in here
+        Don&apos;t have an account?{" "}
+        <Link className="link" to="/signup">
+          Sign up here
         </Link>
       </p>
     </div>
   );
 };
 
-export default SignUpForm;
+export default LogInForm;
